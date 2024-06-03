@@ -1,0 +1,458 @@
+<div *ngIf="visibleMenu">
+
+  <p-sidebar [(visible)]="visibleSidebar1" closeOnEscape="false">
+    <h4 style="font-weight:normal">Filtros</h4>
+    <form class="form-horizontal" #form="ngForm">
+      <div class="card">
+        <div class="ui-inputgroup">
+          <label for="tipoPedidoIpt"> Estoques: </label>
+          <p-multiSelect id="filiaisIpt" [options]="filtrosCP.filialDTO" name="filiaisIpt" [(ngModel)]="filialDTO"
+            placeholder="Selecione o Estoque" optionLabel="nome" class="multi-select">
+          </p-multiSelect>
+        </div>
+        <div class="ui-inputgroup">
+          <label for="tipoPedidoIpt">Tipo Pedido: </label>
+          <p-multiSelect id="tipoPedidoIpt" [options]="filtrosCP.tipoPedidoDTO" name="tipoPedidoIpt"
+            [(ngModel)]="tipoPedidoDTO" placeholder="Selecione Tipo Pedido" optionLabel="tipoPedido">
+          </p-multiSelect>
+        </div>
+        <div class="ui-inputgroup">
+          <label for="statusIpt">Status: </label>
+          <p-multiSelect [(ngModel)]="statusDTO" id="statusIpt" name="statusIpt" [options]="filtrosCP.statusDTO"
+            placeholder="Selecione o Status" optionLabel="status"></p-multiSelect>
+        </div>
+        <div class="ui-inputgroup">
+          <label for="nomeLocalizacaoIpt">Localização: </label>
+          <p-multiSelect id="nomeLocalizacaoIpt" [options]="filtrosCP.localizacaoDTO" [(ngModel)]="localizacaoDTO"
+            name="nomeLocalizacaoIpt" placeholder="Selecione o Local" optionLabel="nomeLocalizacao">
+          </p-multiSelect>
+        </div>
+        <div class="ui-inputgroup">
+          <label for="meioTransporteIpt">Meio de Transporte: </label>
+          <p-multiSelect id="meioTransporteIpt" [options]="filtrosCP.transporteDTO" [(ngModel)]="transporteDTO"
+            name="meioTransporteIpt" placeholder="Selecione o Transporte" optionLabel="nome">
+          </p-multiSelect>
+        </div>
+      </div>
+      <button type="submit" (click)="enviarFiltrosParaHome();"
+        class="btn btn-primary pull-right btn-search"><i class="pi pi-search"></i> Pesquisar</button>
+
+        <button type="submit" (click)="pedidos();"
+        class="btn btn-primary pull-right btn-search"><i class="pi pi-filter-slash"></i> Limpar Filtros</button>
+    </form>
+  </p-sidebar>
+
+
+  <p-sidebar [(visible)]="visibleSidebar2" position="right" closeOnEscape="false">
+    <h4 style="font-weight:normal">ADM</h4>
+    <form class="form-horizontal" #form="ngForm">
+      <div class="card">
+        <a [routerLink]="['/app-perfil']" routerLinkActive="router-link-active">
+        <div class="ui-inputgroup">
+          <li class="sub-menu">
+            <i class="fas fa-id-card" style='font-size:24px;'></i>
+            <p> Perfil</p>
+          </li>
+        </div>
+        </a>
+        <a [routerLink]="['/app-usuarios']" routerLinkActive="router-link-active">
+          <div class="ui-inputgroup">
+            <li class="sub-menu">
+              <i class="fas fa-users-cog" style='font-size:24px;'></i>
+              <p> Usuários</p>
+            </li>
+          </div>
+        </a>
+        <a [routerLink]="['/app-filiais']" routerLinkActive="router-link-active">
+          <div class="ui-inputgroup">
+            <li class="sub-menu">
+              <i class="fas fa-cubes" style='font-size:24px;'></i>
+              <p>Estoque</p>
+            </li>
+          </div>
+        </a>
+      </div>
+    </form>
+  </p-sidebar>
+</div>
+
+<div class="toolbar" id="kt_toolbar" *ngIf="visibleMenu">
+  <!-- <button type="button" *ngIf="visualizarPedidos" class="btn btn-primary">{{qtdPedidos}}</button> -->
+  <div id="kt_toolbar_container" class="d-flex flex-stack">
+      <p-menubar [model]="items">
+      </p-menubar>
+  </div>
+  <button type="button" (click)="showDialogCP()" *ngIf="btInserirPedido" class="btn btn-primary" id="novoPedido"> <i class="pi pi-plus"></i> Novo Pedido</button>
+
+  <p-toggleButton *ngIf="visualizarPedidos" [(ngModel)]="checked" (click)="ordenar()" onLabel="Ordenar" offLabel="Ordenar" [ngModelOptions]="{standalone: true}" onIcon="pi pi-sort-numeric-down" offIcon="pi pi-sort-numeric-up-alt"></p-toggleButton>
+
+  <button type="button" *ngIf="visualizarPedidos" class="btn btn-primary"><i class="pi pi-align-justify"></i> {{qtdPedidos}}</button>
+  <div id="pesquisa">
+    <button *ngIf="funcPesquisarPedido" type="submit" (click)="enviarNumPedidosHome()" class="btn btn-primary pull-right btn-pesquisar"><i class="pi pi-search"></i> Pesquisar</button>
+    <input *ngIf="funcPesquisarPedido" id="numPedidoIpt" name="numPedidoIpt" type="text" placeholder="Pedido ou Técnico" [(ngModel)]="codigoDoPedido" pInputText>
+  </div>
+  <!-- <p-toggleButton *ngIf="visualizarPedidos" [(ngModel)]="checked" onLabel="Ordenar" offLabel="Ordenar" [ngModelOptions]="{standalone: true}" onIcon="pi pi-sort-numeric-down" offIcon="pi pi-sort-numeric-up-alt"></p-toggleButton> -->
+</div>
+
+<div class="container-fluid">
+
+  <form class="form-horizontal" (ngSubmit)="pesquisarPedidos()">
+    <!-- <button type="button" (click)="showDialogCP()" *ngIf="btInserirPedido" class="btn btn-primary"> <i class="pi pi-plus"></i> Novo Pedido</button> -->
+    <!--button type="button" (click)="showDialogEntrega()" class="btn btn-primary pull-right"> <i class="pi pi-update"></i>Atualizar Entrega</button-->
+
+    <!-- <span *ngIf="visualizarPedidos" class= "p-shadow-3 p-tag p-tag-rounded p-tag-info pull-center">
+      <h5><b> {{qtdPedidos}}</b></h5>
+    </span> -->
+
+    <!-- <p-toggleButton *ngIf="visualizarPedidos" [(ngModel)]="checked" [ngModelOptions]="{standalone: true}" onIcon="pi pi-sort-numeric-down" offIcon="pi pi-sort-numeric-up-alt" class="pull-right classificar" onlabel="Ordenar" offlabel="Ordenar"></p-toggleButton> -->
+    <!-- <p *ngIf="visualizarPedidos" class="pull-right">Ordenar: </p> -->
+
+    <p-dialog [style]="{width: '760px'}" header="Novo Pedido"
+      class="content-section implementation carousel-demo" [(visible)]="displayBasicCP">
+      <form class="form-horizontal" #formPedido="ngForm" (ngSubmit)="inserirPedidoCP()">
+        <div class="card">
+          <div class="ui-inputgroup">
+            <h5><label for="tipoPedidoIpt">Tipo Pedido: </label></h5>
+              <p-dropdown inputId="tipoPedidoIpt" [options]="filtrosCP.tipoPedidoDTO" name="tipoPedidoIpt"
+                [(ngModel)]="tipoPedidoCP" placeholder="Selecione Tipo Pedido" optionLabel="tipoPedido"
+                ></p-dropdown>
+          </div>
+          <div class="ui-inputgroup">
+            <h5><label for="statusIpt">Status: </label></h5>
+            <p-dropdown [(ngModel)]="statusCP" inputId="statusIpt" name="statusIpt" [options]="filtrosCP.statusDTO"
+              placeholder="Selecione o Status" optionLabel="status"></p-dropdown>
+          </div>
+          <div class="ui-inputgroup">
+            <h5><label for="erpId">Número TOTVS: </label></h5>
+            <input required [(ngModel)]="criacaoPedido.erpId" name="erpId" id="erpId" type="number"
+              (change)="verficaTecnico()" class="form-input" pInputText #erpId="ngModel">
+            <p-message *ngIf="!erpId.valid && erpId.touched" severity="error" text="Técnico é obrigatório."></p-message>
+          </div>
+          <div class="ui-inputgroup">
+            <h5><label for="idTecnico">Técnico: </label></h5>
+            <input disabled [(ngModel)]="criacaoPedido.idTecnico" name="idTecnico" id="idTecnico" type="text" class="form-input" pInputText #idTecnico="ngModel">
+            <p-message *ngIf="!idTecnico.valid && idTecnico.touched" severity="error" text="Técnico é obrigatório."></p-message>
+          </div>
+          <div class="ui-inputgroup">
+            <h5><label for="nomeTecnico">Nome: </label></h5>
+            <input disabled="" [(ngModel)]="criacaoPedido.nmTecnico" name="nomeTecnico" id="nomeTecnico" type="text" class="form-input" pInputText #nomeTecnico="ngModel">
+            <p-message *ngIf="!nomeTecnico.valid && nomeTecnico.touched" severity="error" text="Técnico é obrigatório."></p-message>
+          </div>
+          <div class="ui-inputgroup">
+          <h5><label for="nomeLocalizacaoIpt">Localização: </label></h5>
+          <input disabled [(ngModel)]="localizacaoCP.nomeLocalizacao" name="nomeLocalizacaoIpt" id="nomeLocalizacaoIpt" class="form-input"
+              pInputText/>
+            <!--p-dropdown inputId="nomeLocalizacaoIpt" [options]="filtrosCP.localizacaoDTO" [(ngModel)]="localizacaoCP"
+              name="nomeLocalizacaoIpt" placeholder="Selecione o Local" optionLabel="nomeLocalizacao"
+              [showClear]="true"></!--p-dropdown-->
+          </div>
+          <div class="ui-inputgroup">
+          <h5><label for="idTarefa">Tarefa: </label></h5>
+            <input [(ngModel)]="criacaoPedido.idTarefa" name="idTarefa" id="idTarefa" autocomplete="off" (change)="verficaTarefa()" class="form-input"
+              pInputText/>
+          </div>
+          <div class="ui-inputgroup">
+          <h5><label for="idSite">Site: </label></h5>
+            <input [(ngModel)]="criacaoPedido.idSite" id="idSite" name="idSite" (change)="verficaSite()" class="form-input" pInputText>
+          </div>
+          <h3>Peças</h3>
+          <div class="ui-inputgroup">
+          <h5><label for="equipamentoIpt">Equipamento Inicial: </label></h5>
+            <p-dropdown name="equipamentoIpt" optionLabel="equipamento" [filter]="true"
+              [options]="filtrosCP.equipamentoDTO" [(ngModel)]="equipamentoCP" placeholder="Selecione o Equipamento">
+            </p-dropdown>
+            <button type="button" (click)="showDialogPecas()" class="btn btn-primary lista"><i class="pi pi-plus"></i> Adicionar da Lista</button>
+            <button type="button" (click)="adicionarManualmente()" class="btn btn-primary manual"><i class="pi pi-plus"></i> Adicionar Manualmente</button>
+          </div>
+          <div class="ui-inputgroup">
+            <p-table [value]="bomSelectDTO" class="ui-inputgroup" dataKey="itemCode" editMode="row">
+              <ng-template pTemplate="header">
+                <tr>
+                  <th>Código</th>
+                  <th>Descrição</th>
+                  <th>Quantidade</th>
+                </tr>
+              </ng-template>
+              <ng-template pTemplate="body" let-product>
+                <tr>
+                  <td><input required [ngModelOptions]="{standalone: true}" type="text" [(ngModel)]="product.itemCode" pInputText #itemCode="ngModel" name="itemCode" id="itemCode" mask="00.000.00000-0S" [dropSpecialCharacters]="false"></td>
+                  <td><input [ngModelOptions]="{standalone: true}" type="text" [(ngModel)]="product.itemDescription" pInputText #itemDescription="ngModel" name="itemDescription" id="itemDescription"></td>
+                  <td><input required [ngModelOptions]="{standalone: true}" type="number" [(ngModel)]="product.qtd" pInputText #qtd="ngModel" name="qtd" id="qtd"></td>
+                </tr>
+                <tr>
+                  <td><!--p-message *ngIf="!itemCode.valid && itemCode.touched" severity="error" text="Código é obrigatório."></p-message--></td>
+                  <td></td>
+                  <td><p-message *ngIf="!qtd.valid && qtd.touched" severity="error" text="Quantidade é obrigatória."></p-message></td>
+                </tr>
+              </ng-template>
+            </p-table>
+          </div>
+          <h3>Meio de Transporte</h3>
+          <div class="ui-inputgroup">
+            <p-dropdown (onChange)="alterarTransporte(criacaoPedido)" [(ngModel)]="criacaoPedido.transporte" inputId="transporte" name="transporte" [options]="filtrosCP.transporteDTO"
+              placeholder="Selecione o Transporte" optionLabel="nome"></p-dropdown>
+          </div>
+          <h3>Endereço Entrega:</h3>
+          <div class="ui-inputgroup">
+            <button type="button" class="btn btn-primary btn-alterar-endereco" (click)="limparCamposEndereco()"><i class="pi pi-pencil"></i> Alterar Endereço de Entrega</button>
+            <!--p-checkbox label="Buscar no Estoque" [(ngModel)]="criacaoPedido.buscaPedido" [ngModelOptions]="{standalone: true}"></!--p-checkbox-->
+            <!-- <button type="button" class="btn btn-primary btn-buscar-estoque" (click)="buscarNoEstoque()"><i class="pi pi-map"></i> Buscar no Estoque </button> -->
+          </div>
+          <div class="ui-inputgroup">
+          <h5><label for="enderecoIpt">Endereço: </label></h5>
+            <input required id="enderecoIpt" name="enderecoIpt" type="text" [(ngModel)]="criacaoPedido.eaLogradouro" class="form-input" pInputText #enderecoIpt="ngModel">
+            <p-message *ngIf="!enderecoIpt.valid && enderecoIpt.touched" severity="error" text="Endereço é obrigatório."></p-message>
+          </div>
+          <div class="ui-inputgroup">
+          <h5><label required for="numIpt">Número: </label></h5>
+            <input required id="numIpt" name="numIpt" type="text" [(ngModel)]="criacaoPedido.eaNum" class="form-input" pInputText #numIpt="ngModel">
+            <p-message *ngIf="!numIpt.valid && numIpt.touched" severity="error" text="Número é obrigatório."></p-message>
+          </div>
+          <div class="ui-inputgroup">
+          <h5><label for="cepIpt">CEP: </label></h5>
+            <input required id="cepIpt" name="cepIpt" type="number" maxlength="8" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" [(ngModel)]="criacaoPedido.eaCep" class="form-input" pInputText #cepIpt="ngModel">
+            <p-message *ngIf="!cepIpt.valid && cepIpt.touched" severity="error" text="CEP é obrigatório."></p-message>
+          </div>
+          <div class="ui-inputgroup">
+          <h5><label for="bairroIpt">Bairro: </label></h5>
+            <input required id="bairroIpt" name="bairroIpt" type="text" [(ngModel)]="criacaoPedido.eaBairro" class="form-input" pInputText #bairroIpt="ngModel">
+            <p-message *ngIf="!bairroIpt.valid && bairroIpt.touched" severity="error" text="Bairro é obrigatório."></p-message>
+          </div>
+          <div class="ui-inputgroup">
+          <h5><label for="cidadeIpt">Cidade: </label></h5>
+            <input required id="cidadeIpt" name="cidadeIpt" type="text" [(ngModel)]="criacaoPedido.eaCidade" class="form-input" pInputText #cidadeIpt="ngModel">
+            <p-message *ngIf="!cidadeIpt.valid && cidadeIpt.touched" severity="error" text="Cidade é obrigatório."></p-message>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary btn-insert" [disabled]="!formPedido.valid"><i class="pi pi-check"></i> Inserir</button>
+      </form>
+    </p-dialog>
+    <p-dialog [style]="{width: '800px'}" header="Peças Equipamento:  "
+      class="content-section implementation carousel-demo" [(visible)]="displayBasicEquip">
+      <form class="form-horizontal" #form="ngForm" (ngSubmit)="inserirPedidoCP()">
+        <div class="card">
+          <p-pickList [source]="bomDTO" [target]="bomSelectDTO" sourceHeader="Disponível" targetHeader="Selecionado"
+            dragdrop="true" [responsive]="true" [sourceStyle]="{'height':'800px'}" [targetStyle]="{'height':'800px'}"
+            filterBy="itemCode" sourceFilterPlaceholder="Procurar por nome" targetFilterPlaceholder="Procurar por nome">
+            <ng-template let-product pTemplate="item">
+              <div class="product-item">
+                <div class="product-list-detail">
+                  <h5 class="p-mb-2">{{product.itemCode}}</h5>
+                  <span class="product-category">{{product.itemDescription}}</span>
+                </div>
+                <div class="product-list-action">
+                  <h5 class="p-mb-2">{{product.itemFamily}}</h5>
+                </div>
+              </div>
+            </ng-template>
+          </p-pickList>
+          <button pButton pRipple type="button" label="Finalizado" (click)="hideDialog()" class="p-button-rounded p-button-primary p-button-outlined btn-alt pull-right"></button>
+        </div>
+      </form>
+    </p-dialog>
+
+ <p-dialog header="Atenção pedido não realizado!"
+    class="content-section implementation carousel-demo" [(visible)]="displayIntegracao">
+    <h4>{{retornoCriacaoPedido.mensagemTotvs}}</h4>
+    <form class="form-horizontal" #formTotvs="ngForm" (ngSubmit)="hideIntegracaoTotvs()">
+        <h3>Itens do Pedido</h3>
+        <div class="ui-inputgroup">
+          <p-table [value]="retornoCriacaoPedido.produto" class="ui-inputgroup" dataKey="itemCode" editMode="row">
+            <ng-template pTemplate="header">
+              <tr>
+                <th>Item</th>
+                <th>Descrição</th>
+                <th>Qtd solicitada</th>
+                <th>Mensagem</th>
+                <th>Saldo</th>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-product>
+              <tr>
+                <td><h5>{{product.itemCodigo}}</h5></td>
+                <td id="descricaoItem" style="text-align:left;"><h5>{{product.itemDescription}}</h5></td>
+                <td><h5>{{product.prodQtd}}</h5></td>
+                <td><h5>{{product.mensagemTotvs}}</h5></td>
+                <td><h5>{{product.quantidadeTotvs}}</h5></td>
+              </tr>
+            </ng-template>
+          </p-table>
+        </div>
+      <button type="submit" class="btn btn-danger btn-insert"><i class="pi pi-check"></i> Ok, vou revisar o pedido! </button>
+    </form>
+  </p-dialog>
+
+    <p-dialog [style]="{width: '570px'}" header="Informações da Entrega Pedido {{this.idPedido}}"
+      class="content-section implementation carousel-demo" [(visible)]="displayEntrega">
+      <form class="form-horizontal" #formEntrega="ngForm" (ngSubmit)="atualizarEntrega(atualizaPedido)">
+        <div class="card">
+          <div class="ui-inputgroup">
+          <h5><label for="nomeEntregador">Nome do Entregador: </label></h5>
+            <input required [(ngModel)]="atualizaPedido.nomeEntregador" name="nomeEntregador" id="nomeEntregador" class="form-input"
+              pInputText #nomeEntregador="ngModel" maxlength="50"/>
+              <p-message *ngIf="!nomeEntregador.valid && nomeEntregador.touched" severity="error" text="Nome do entregador é obrigatório."></p-message>
+          </div>
+          <div class="ui-inputgroup">
+          <h5><label for="telefoneEntregador">Telefone do Entregador: </label></h5>
+            <input type="text" [(ngModel)]="atualizaPedido.telefoneEntregador" id="telefoneEntregador" name="telefoneEntregador" class="form-input" pInputText #telefoneEntregador="ngModel" maxlength="15" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" mask="(00) 00000-0000" [dropSpecialCharacters]="false">
+            <!-- <p-message *ngIf="!telefoneEntregador.valid && telefoneEntregador.touched" severity="error" text="Telefone do entregador é obrigatório."></p-message> -->
+          </div>
+          <div class="ui-inputgroup">
+            <h5><label for="observacoes">Observações: </label></h5>
+              <input [(ngModel)]="atualizaPedido.observacao" id="observacoes" name="observacoes" class="form-input" pInputText maxlength="100">
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary btn-insert" [disabled]="!formEntrega.valid"><i class="pi pi-check"></i> Atualizar Entrega</button>
+      </form>
+    </p-dialog>
+
+    <p-dialog [style]="{width: '500px'}" header="Informações da Entrega/Devolução Pedido {{this.idPedido}}"
+      class="content-section implementation carousel-demo" [(visible)]="displayPrevisaoEntrega">
+      <form class="form-horizontal" #formPrevisaoEntrega="ngForm" (ngSubmit)="atualizarPrevisaoEntrega(atualizaPedido)">
+        <div class="card" style="height: 500px;">
+          <div class="ui-inputgroup">
+          <h5><label for="nomeEntregador">Entrega/Devolução: </label></h5>
+          <p-calendar required #dataEntrega="ngModel" id="dtEntrega" name="dtEntrega" [style]="{'width':'100%'}" [locale]="pt" [(ngModel)]="atualizaPedido.dtEntrega" dateFormat="dd/mm/yy" value="" showTime="true" [hourFormat]="24" showButtonBar="true" [disabledDates]="invalidDates" [showIcon]="true" (ngModelChange)="atualizaPedido.dtEntrega=$event"></p-calendar>
+            <!--input required [(ngModel)]="atualizaPedido.nomeEntregador" name="nomeEntregador" id="nomeEntregador" class="form-input"
+              pInputText #nomeEntregador="ngModel" maxlength="50"/>
+              <p-message-- *ngIf="!nomeEntregador.valid && nomeEntregador.touched" severity="error" text="Nome do entregador é obrigatório."></p-message-->
+          </div>
+          <button type="submit" class="btn btn-primary btn-insert" [disabled]="!formPrevisaoEntrega.valid"><i class="pi pi-check"></i> Atualizar Entrega/Devolução</button>
+        </div>
+      </form>
+    </p-dialog>
+
+
+    <p-dialog [style]="{width: '570px'}" header="Você precisa alterar sua senha!"
+      class="content-section implementation carousel-demo" [(visible)]="displayAlterarSenha">
+      <form class="form-horizontal" #formUsuario="ngForm" (ngSubmit)="atualizarSenha(usuarioUpdate)">
+        <div class="card">
+          <div class="ui-inputgroup">
+          <h5><label for="senha">Senha: </label></h5>
+            <input required [(ngModel)]="usuarioUpdate.senha" name="senha" id="senha" class="form-input"
+              pInputText #senha="ngModel"/>
+              <p-message *ngIf="!senha.valid && senha.touched" severity="error" text="Senha é obrigatória!"></p-message>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary btn-atualizar-senha" [disabled]="!formUsuario.valid"><i class="pi pi-check"></i> Atualizar Senha</button>
+      </form>
+    </p-dialog>
+  </form>
+  <br />
+  <div class="content-section implementation carousel-demo" *ngIf="visualizarPedidos">
+    <div class="card">
+      <p-confirmDialog [style]="{width: '50vw'}" key="positionDialog" [position]="position" [baseZIndex]="10000">
+      </p-confirmDialog>
+      <p-messages [value]="msgs"></p-messages>
+      <p-carousel [value]="pedido" styleClass="custom-carousel" [numVisible]="5" [numScroll]="5" [circular]="false"
+       [responsiveOptions]="responsiveOptions">
+        <ng-template let-ped pTemplate="item">
+          <!-- <div [ngClass]="{
+            motos: motos(ped.transporte.nome),
+            transportadoras: transportadoras(ped.transporte.nome),
+            estoques: estoques(ped.transporte.nome)
+          }"> -->
+
+            <div class="product-item">
+              <div class="product-item-content" >
+                <div [ngClass]="{
+                  aberto: aberto(ped.stPstatusStatus),
+                  emAnalise: emAnalise(ped.stPstatusStatus),
+                  emSeparacao: emSeparacao(ped.stPstatusStatus),
+                  emitindoNf: emitindoNf(ped.stPstatusStatus),
+                  aguardandoRetirada: aguardandoRetirada(ped.stPstatusStatus),
+                  aguardandoPrevisao: aguardandoPrevisao(ped.stPstatusStatus),
+                  aguardandoEnvio: aguardandoEnvio(ped.stPstatusStatus),
+                  emTransporte: emTransporte(ped.stPstatusStatus),
+                  buscando: buscando(ped.stPstatusStatus),
+                  devolvendo: devolvendo(ped.stPstatusStatus),
+                  recebidoNoEstoque: recebidoNoEstoque(ped.stPstatusStatus),
+                  finalizado: finalizado(ped.stPstatusStatus),
+                  cancelado: cancelado(ped.stPstatusStatus)
+                      }">
+                  <div class="box-header with-border content-section implementation">
+                    <h1 class="box-title" [ngClass]="{
+                      aberto: aberto(ped.stPstatusStatus),
+                      emAnalise: emAnalise(ped.stPstatusStatus),
+                      emSeparacao: emSeparacao(ped.stPstatusStatus),
+                      emitindoNf: emitindoNf(ped.stPstatusStatus),
+                      aguardandoRetirada: aguardandoRetirada(ped.stPstatusStatus),
+                      aguardandoPrevisao: aguardandoPrevisao(ped.stPstatusStatus),
+                      aguardandoEnvio: aguardandoEnvio(ped.stPstatusStatus),
+                      emTransporte: emTransporte(ped.stPstatusStatus),
+                      buscando: buscando(ped.stPstatusStatus),
+                      devolvendo: devolvendo(ped.stPstatusStatus),
+                      recebidoNoEstoque: recebidoNoEstoque(ped.stPstatusStatus),
+                      finalizado: finalizado(ped.stPstatusStatus),
+                      cancelado: cancelado(ped.stPstatusStatus)
+                          }">
+                          <i *ngIf="ped.transporte.id == 1;" class='fas fa-motorcycle fa-lg'></i>
+                          <i *ngIf="ped.transporte.id == 2;" class='fas fa-shipping-fast fa-lg'></i>
+                          <i *ngIf="ped.transporte.id == 3;" class='fas fa-home fa-lg'></i>
+                          {{ped.tipoPedido ? ped.tipoPedido.substr(0, 1) : ped.tipoPedido}} {{ped.idPedido }} {{ ped.stPstatusStatus ? ped.stPstatusStatus.substr(0, 15) : ped.stPstatusStatus }}
+                          <i *ngIf="ped.viaMobile == 0;" class='fas fa-laptop fa-lg'></i>
+                          <i *ngIf="ped.viaMobile == 1;" class='fas fa-mobile-alt fa-lg'></i>
+                    </h1>
+                  </div>
+                </div>
+                <button [disabled]="!btCancelar" (click)="cancelPosition('center',ped.idPedido, ped.stPstatusStatus, ped.tipoPedido, ped.buscaPedido)"
+                  type="button" icon="pi pi-times-circle" class="btn btn-danger btn-action"><i class="pi pi-times-circle"></i> Cancelar </button>
+                <button [disabled]="!btAvancar" (click)="confirmPosition('center',ped.idPedido, ped.stPstatusStatus, ped.tipoPedido, ped.buscaPedido)"
+                  type="button" class="btn btn-success btn-action"><i class="pi pi-forward"></i> Avançar </button>
+                <!-- <div class="box-body" [ngClass]="{std: (finalizado() === false), finalizadoBody: finalizado()}"> -->
+                  <div class="box-body" [ngClass]="{std: (finalizado() === false), finalizadoBody: finalizado(),devolucao: devolucao(ped.tipoPedido)}">
+
+                  <h5> <b>Atendente: </b> {{ ped.stPstatusUsuario }}</h5>
+                  <h5> <b>Localização: </b> {{ ped.nomeLocalizacao }}</h5>
+                  <h5><b>Estoque:</b> {{ ped.nomeFilial}}</h5>
+                  <h5> <b> Data:</b> {{ped.stPstatusData | date: "dd/MM/yyyy HH:mm" }} </h5>
+                  <h5> <b>Técnico:</b> {{ ped.idTecnico }} - {{ ped.nmTecnico }} </h5>
+                  <h5> <b>TOTVS:</b> {{ ped.erpId }} </h5>
+                  <h5> <b>Tarefa:</b> {{ ped.idTarefa}} </h5>
+                  <h5> <b>Prazo Solução:</b> {{ ped.prazoSolucao | date: "dd/MM/yyyy HH:mm"}}</h5>
+                  <h5> <b>Equip.:</b> {{ ped.descricaoDoEquipamento }} </h5>
+                  <h5><b>Site:</b> {{ ped.idSite }} - {{ ped.nmSite }}</h5>
+                  <h5><b>Meio de Transporte:</b> {{ ped.transporte.nome }}</h5>
+                  <h5><b>Nome do Entregador:</b> {{ ped.nomeEntregador }}</h5>
+                  <h5><b>Telefone do Entregador:</b> {{ ped.telefoneEntregador }}</h5>
+                  <h5><b>Observação:</b> {{ ped.observacao }}</h5>
+                  <!--h5><b>Busca no Estoque:</b> {{ ped.buscaPedido }}</!--h5-->
+                  <h5><b>Endereço de Entrega/Devolução:</b></h5>
+                  <h5> {{ ped.eaLogradouro }} - {{ ped.eaNum }} - {{ ped.eaCep }} - {{ ped.eaBairro }} - {{ ped.eaCidade }}</h5>
+                  <h5><b>Entrega/Devolução: </b></h5>
+                  <p-calendar [disabled]="!dtEntregaDevolucao" id="dtEntrega" name="dtEntrega" [style]="{'width':'100%'}" [locale]="pt" [(ngModel)]="ped.dtEntrega" dateFormat="dd/mm/yy" value="" (onSelect)="alterarDataEntrega(ped)" showTime="true" [hourFormat]="24" showButtonBar="true" [disabledDates]="invalidDates" [showIcon]="true" (ngModelChange)="ped.dtEntrega=$event"></p-calendar>
+                  <!--input id="dtEntrega" name="dtEntrega" (change)="alterarDataEntrega(ped)" placeholder="Data de Entrega" type="datetime-local" value="" [ngModel]="ped.dtEntrega  | date:'yyyy-MM-ddThh:mm'" (ngModelChange)="ped.dtEntrega=$event" class="form-input" pInputText-->
+                  <!--input id="dtEntrega" name="dtEntrega" (change)="alterarDataEntrega(ped)" placeholder="Data de Entrega" type="date" value="" [ngModel]="ped.dtEntrega  | date:'yyyy-MM-dd'" (ngModelChange)="ped.dtEntrega=$event" class="form-input" pInputText-->
+                  <p-table [value]="ped.produto" class="box-header with-border">
+                    <ng-template pTemplate="header">
+                      <tr style="text-align: center">
+                        <th style="text-align: center">Item</th>
+                        <th style="text-align: center">Qtd</th>
+                        <th style="text-align: center">OK</th>
+                      </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-prod>
+                      <tr style="text-align: center">
+                        <td style="text-align: center">{{prod.itemCodigo}} <br> {{prod.itemDescription ? prod.itemDescription.substr(0, 20) : prod.itemDescription }}</td>
+                        <td style="text-align: center">{{prod.prodQtd}}</td>
+                        <td style="text-align: center"><p-triStateCheckbox></p-triStateCheckbox></td>
+                      </tr>
+                    </ng-template>
+                  </p-table>
+                  <br />
+                </div>
+              </div>
+            </div>
+
+          <!-- </div> -->
+        </ng-template>
+      </p-carousel>
+    </div>
+    <div class="spinner-central" *ngIf="showSpinner">
+      <p-progressSpinner></p-progressSpinner>
+    </div>
+  </div>
+</div>
+<br />
+<br />
+<br />

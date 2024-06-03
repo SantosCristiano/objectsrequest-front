@@ -1,0 +1,72 @@
+.modal-backdrop {
+  position: inherit;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1040;
+  background-color: #000;
+}
+
+#numPedidoIpt {
+  float: right;
+  margin: 10px;
+  margin-right: 5px;
+  padding: 10px;
+}
+
+.menu-principal {
+  margin-top: 10px;
+  margin-left: 15px;
+  padding-right: 30px;
+  padding-left: 30px;
+}
+
+.btn-pesquisar {
+  margin: 10px;
+  //margin-right: 50px;
+}
+
+.btn-search {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+}
+
+.navbar {
+  background: linear-gradient(to right,#005c95 0%,#52247f 50%,#b31c2e 100%);
+}
+
+.p-menubar.p-component {
+  background: linear-gradient(to right, #005c95 0%, #52247f 50%, #b31c2e 100%) !important;
+}
+
+a.logo:hover {
+  color: #00c4ff;
+}
+
+.menu-principal {
+  background-color: rgb(166, 25, 46);
+  border-color: transparent;
+}
+
+.menu-principal {
+  background-color: rgb(166, 25, 46);
+  border-color: transparent;
+}
+
+.menu-principal:hover, .menu-principal:active, .menu-principal.hover {
+  background-color: #7c33a3;
+}
+
+.p-dropdown {
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -webkit-user-select: none;
+  cursor: pointer;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  position: fixed;
+  user-select: none;
+  width: 160px;
+}

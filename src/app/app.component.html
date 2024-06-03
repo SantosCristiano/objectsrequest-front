@@ -1,0 +1,14 @@
+<app-header *ngIf="getVisualiza()"></app-header>
+
+<app-login *ngIf="!getVisualiza()"></app-login>
+
+  <div *ngIf="getVisualiza()" class="layout-content fundo">
+    <section class="content-header">
+    </section>
+    <section class="content">
+      <router-outlet>
+      </router-outlet>
+    </section>
+  </div>
+
+<app-footer *ngIf="getVisualiza()"></app-footer>

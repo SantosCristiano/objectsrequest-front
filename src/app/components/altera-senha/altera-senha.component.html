@@ -1,0 +1,25 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="content-section implementation">
+        <form class="form-horizontal" (ngSubmit)="alterar()">
+          <p-card>
+            <p-header>
+              <h3 class="box-title" style="width: 100%; text-align: center; padding: 25px; padding-bottom: 0px;">Alterar senha</h3>
+            </p-header>
+            <div class="ui-inputgroup">
+              <h5><label for="usuario">Usuário:</label></h5>
+              <input type="text" class="form-input uppercase" [formControl]="usuario" id="usuario" name="usuario" placeholder="Usuário" pInputText />
+            </div>
+            <div class="ui-inputgroup">
+              <h5><label for="senha">Nova Senha:</label></h5>
+              <input type="text" class="form-input uppercase" [formControl]="senha" id="senha" name="senha" placeholder="Nova Senha" pInputText />
+            </div>
+              <button type="reset" class="btn btn-warning btn-standard btn-clear"><i class="fa fa-edit"></i> Limpar</button>
+              <button type="submit" class="btn btn-primary btn-standard btn-include"><i class="fa fa-check"></i> Alterar</button>
+          </p-card>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,91 @@
+<div class="container-fluid">
+  <p-table #dt dataKey="idPedido" [globalFilterFields]="['idPedido','stPstatusUsuario','stPstatusData','stPstatusStatus','nomeLocalizacao','tipoPedido',
+  'idTarefa','prodTarefa','nSerie','dtAbertura','dtAgendamento','prazoAtendimento',
+  'prazoSolucao','descricaoDoEquipamento','numeroDeSerieDoEquipamento','catEquipamento',
+  'idSite','nmSite','regiaoTecnica','nomeFilial','cliente','idTecnico','erpId','nmTecnico',
+  'eaLogradouro','eaCep','eaBairro','eaCidade','eaNum','dtEntrega','telefoneEntregador',
+  'observacao','buscaPedido']" [reorderableColumns]="true" [resizableColumns]="true" stateStorage="session" stateKey="statedemo-session" [columns]="selectedColumns" [value]="pedidos" [scrollable]="true" [paginator]="true" [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,20,40,60]" sortMode="multiple" sortField="idPedido">
+    <!-- <ng-template pTemplate="caption">
+      Relatório de Pedidos
+    </ng-template> -->
+    <ng-template pTemplate="caption">
+      <div class="table-header">
+        Relatório de Pedidos
+        <p-multiSelect [options]="cols" [(ngModel)]="selectedColumns" optionLabel="header"
+              selectedItemsLabel="{0} colunas selecionadas" placeholder="Escolha as colunas"></p-multiSelect>
+        <div class="ui-helper-clearfix" style="text-align: center">
+            <button type="button" pButton icon="pi pi-file" iconPos="left" label="CSV" (click)="dt.exportCSV()" style="margin-right: 0.5em;" class="p-button-primary"></button>
+            <button type="button" pButton icon="pi pi-file-excel" iconPos="left" label="EXCEL" (click)="exportExcel()" style="margin-right: 0.5em;" class="p-button-success"></button>
+            <!-- <button type="button" pButton icon="pi pi-file-pdf" iconPos="left" label="PDF" (click)="exportPdf()" class="p-button-warning"></button> -->
+            <!-- <button type="button" pButton icon="pi pi-file" iconPos="left" label="CSV - Selection Only" (click)="dt.exportCSV({selectionOnly:true})" style="float:right"></button> -->
+        </div>
+        <div class="p-input-icon-left ml-auto">
+            <!-- <i class="pi pi-search"></i> -->
+            <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Pesquisar" />
+        </div>
+      </div>
+      </ng-template>
+    <!-- <ng-template pTemplate="header" let-columns>
+      <tr>
+        <th style="width: 3rem"></th>
+        <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+          {{col.header}}
+          <p-sortIcon [field]="col.field"></p-sortIcon>
+        </th>
+      <p-columnFilter type="text" field="name" display="menu"></p-columnFilter>
+      </tr>
+    </ng-template> -->
+    <ng-template pTemplate="body" let-pedido let-i="rowIndex" let-columns="columns" let-expanded="expanded">
+      <tr *ngIf="i == 0 || i % 10 == 0 ">
+        <!-- <th>Ações</th> -->
+        <th style="width: 3rem"></th>
+        <th *ngFor="let col of columns" [pSortableColumn]="col.field" pReorderableColumn>
+          {{col.header}}
+          <p-sortIcon [field]="col.field"></p-sortIcon>
+        </th>
+      <!-- <p-columnFilter type="text" field="name" display="menu"></p-columnFilter> -->
+      </tr>
+        <tr>
+          <td>
+            <button type="button" pButton pRipple [pRowToggler]="pedido" class="p-button-text p-button-rounded p-button-plain" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button>
+          </td>
+          <!-- <td class="fixed-side"><button id="btnPesquisa" class="btn btn-sm btn-primary" pButton type="button" label="Abrir" style="margin-right: 10px" routerLink="/pedido/{{pedido.id}}"></button> -->
+          <td *ngFor="let col of columns">
+            {{pedido[col.field]}}
+          </td>
+        </tr>
+    </ng-template>
+
+    <ng-template pTemplate="rowexpansion" let-pedido>
+      <tr>
+          <td colspan="35">
+              <div class="p-3">
+                  <p-table [value]="pedido.produto" dataKey="itemCodigo">
+                      <ng-template pTemplate="header">
+                          <tr>
+                              <th pSortableColumn="itemCodigo">Código do Item <p-sortIcon field="itemCodigo"></p-sortIcon></th>
+                              <th pSortableColumn="prodQtd">Quant. do Item <p-sortIcon field="prodQtd"></p-sortIcon></th>
+                              <th pSortableColumn="prodCodigo">Código do Produto <p-sortIcon field="prodCodigo"></p-sortIcon></th>
+                              <th pSortableColumn="itemDescription">Descrição do Item <p-sortIcon field="itemDescription"></p-sortIcon></th>
+                          </tr>
+                      </ng-template>
+                      <ng-template pTemplate="body" let-produto>
+                          <tr>
+                              <td>{{produto.itemCodigo}}</td>
+                              <td>{{produto.prodQtd}}</td>
+                              <td>{{produto.prodCodigo}}</td>
+                              <td>{{produto.itemDescription}}</td>
+                          </tr>
+                      </ng-template>
+                      <ng-template pTemplate="emptymessage">
+                          <tr>
+                              <td colspan="6">Ainda não há produtos para este pedido.</td>
+                          </tr>
+                      </ng-template>
+                  </p-table>
+              </div>
+          </td>
+      </tr>
+  </ng-template>
+  </p-table>
+</div>

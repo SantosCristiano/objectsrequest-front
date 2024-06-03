@@ -1,0 +1,424 @@
+.p-multiselect {
+    display: flex !important;
+    padding-top: 10px !important;
+    padding-right: 10px !important;
+    padding-bottom: 10px !important;
+    padding-left: 10px !important;
+    margin-bottom: 15px !important;
+    border-radius: 5px !important;
+}
+
+.sub-menu {
+    text-align: center;
+    list-style-type: none;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.p-dropdown {
+    display: flex !important;
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
+    padding-left: 10px !important;
+    margin-bottom: 15px !important;
+    border-radius: 5px !important;
+}
+
+.form-input {
+    padding-top: 15px !important;
+    padding-right: 10px !important;
+    padding-bottom: 15px !important;
+    padding-left: 10px !important;
+    margin-bottom: 15px !important;
+    border-radius: 5px !important;
+    width: 100%;
+}
+
+.pi {
+  font-size: 1.5rem !important;
+}
+
+.row {
+  display: flex !important;
+  justify-content: center !important;
+}
+
+.p-sidebar-left {
+  width: 350px !important;
+}
+
+.p-sidebar-right {
+  width: 350px !important;
+}
+
+li.sub-menu:hover {
+  background: #00c4ff;
+  color: #fff;
+  border-color: transparent;
+  border-radius: 5px;
+}
+
+a.router-link-active div li {
+  background: #0066a1;
+  color: white;
+  border-radius: 5px;
+}
+
+.p-inputtext {
+  font-size: 12px !important;
+}
+
+.p-placeholder {
+  font-size: 12px;
+}
+.sub-menu p {
+  margin: 5px 0 5px !important;
+}
+
+.btn-primary {
+  padding-top: 9px !important;
+  padding-bottom: 8px !important;
+}
+
+.btn-warning {
+  padding-top: 9px !important;
+  padding-bottom: 8px !important;
+}
+
+.btn-danger {
+  padding-top: 9px !important;
+  padding-bottom: 8px !important;
+}
+
+.btn-success {
+  padding-top: 9px !important;
+  padding-bottom: 8px !important;
+}
+
+.p-button-label {
+  flex: 1 1 auto;
+  font-size: 12px;
+}
+
+// span.ng-star-inserted {
+//   font-size: 12px !important;
+// }
+
+.main-header .logo .logo-lg {
+  margin-top: 5PX;
+}
+
+.btn-alt {
+  margin-top: 20px !important;
+  margin-bottom: 20px !important;
+}
+
+.btn-primary {
+  background: #0066a1;
+  border-color: transparent;
+}
+
+.btn-primary:hover {
+  background: #00c4ff;
+  color: #fff;
+  border-color: transparent;
+}
+
+.btn-warning:hover {
+  background: #ecaa42;
+  color: #fff;
+  border-color: transparent;
+}
+
+.btn-standard {
+  width: 48%;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.btn-clear {
+ margin-right: 10px;
+}
+
+.btn-include {
+  margin-left: 10px;
+}
+
+.btn-edit {
+  margin-right: 10px;
+}
+
+.btn-remove {
+  margin-left: 10px;
+}
+
+span.p-carousel-prev-icon.pi {
+  color: rgb(0, 0, 0);
+  font-weight: 800;
+  font-size: 20px !important;
+}
+
+// .content-section.implementation.carousel-demo {
+//   margin: 10px;
+// }
+
+.main-header .navbar-brand {
+  color: #fff;
+  cursor: pointer;
+}
+
+.p-calendar .p-inputtext {
+  height: 40px !important;
+}
+
+input.p-inputtext.p-component {
+  font-size: 14px !important;
+  font-weight: bold;
+}
+
+th {
+  font-size: 14px;
+}
+
+td {
+  font-size: 12px;
+}
+
+.p-dialog.p-confirm-dialog .p-confirm-dialog-message {
+  font-size: small !important;
+}
+
+.p-datatable table {
+  table-layout: auto !important;
+}
+
+p-table.box-header.with-border {
+  padding: 0px 0px !important;
+  margin-top: 10px !important;
+}
+
+
+// RELATÓRIO
+
+.p-paginator .p-dropdown {
+  margin-left: 1.5rem !important;
+  height: 4.475rem !important;
+  margin-top: 15px;
+}
+
+.p-paginator .p-paginator-pages .p-paginator-page {
+  min-width: 4.475rem !important;
+  height: 4.475rem !important;
+}
+
+.p-paginator .p-paginator-first, .p-paginator .p-paginator-prev, .p-paginator .p-paginator-next, .p-paginator .p-paginator-last {
+  min-width: 4.475rem !important;
+  height: 4.475rem !important;
+}
+
+.p-paginator .p-paginator-current {
+  min-width: 4.475rem !important;
+  height: 4.475rem !important;
+}
+
+.table-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.table-header.ng-star-inserted {
+  font-size: large;
+}
+
+th {
+  padding: 10px 10px ;
+  text-align: center;
+}
+
+
+.p-multiselect-label{
+  font-size: larger;
+}
+
+input.p-inputtext.p-component {
+  padding: 13px;
+}
+
+button.p-button.p-component {
+  padding: 13px;
+}
+
+.content-wrapper {
+  background-color: #e3e8ee !important;
+}
+
+.p-tag.p-tag-info {
+  color: #000 !important;
+}
+
+p.pull-right {
+  color: #000 !important;
+}
+
+// merge interfaces
+
+/* You can add global styles to this file, and also import other style files */
+.divCard {
+  margin-top: 55px
+}
+
+th, td {
+  white-space: nowrap;
+}
+
+th, td {
+  text-align: center !important;     /* alinhamento horizontal */
+  vertical-align: middle !important; /* alinhamento vertical */
+}
+
+
+.p-menubar {
+  background: #fff !important;
+}
+
+// .p-menubar .p-menubar-root-list > .p-menuitem > .p-menuitem-link .p-menuitem-text {
+//   color: rgb(0 0 0) !important;
+// }
+
+@media screen and (max-width: 960px) {
+  .p-menubar .p-menubar-root-list {
+    width: auto !important;
+  }
+}
+
+
+// submenu-opcoes
+
+@media screen and (max-width: 991px) {
+  .header-fixed.toolbar-fixed .sub-toolbar {
+    top: 110px;
+    border-top: 1px solid #eff2f5;
+  }
+
+  .header-fixed.toolbar-fixed .sub-toolbar {
+    top: 110px;
+    border-top: 1px solid #eff2f5;
+  }
+
+  .toolbar-fixed .sub-toolbar {
+    height: var(--kt-toolbar-height);
+    position: fixed;
+    // top: 0;
+    right: 0;
+    left: 0;
+    z-index: 98;
+    background-color: #fff;
+    box-shadow: 0 10px 30px 0 rgb(82 63 105 / 5%);
+  }
+
+  .sub-toolbar {
+    display: flex;
+    align-items: center;
+  }
+}
+
+@media screen and (min-width: 991px) {
+  .header-fixed.toolbar-fixed .sub-toolbar {
+    top: 145px;
+    border-top: 1px solid #eff2f5;
+  }
+
+  .header-fixed.toolbar-fixed .sub-toolbar {
+    top: 145px;
+    border-top: 1px solid #eff2f5;
+  }
+
+  .toolbar-fixed .sub-toolbar {
+    height: var(--kt-toolbar-height);
+    position: fixed;
+    // top: 0;
+    right: 0;
+    left: 0;
+    z-index: 98;
+    background-color: #fff;
+    box-shadow: 0 10px 30px 0 rgb(82 63 105 / 5%);
+  }
+
+  .sub-toolbar {
+    display: flex;
+    align-items: center;
+  }
+}
+
+.d-flex.flex-column.flex-root {
+  height: 100vh;
+  width: 100% !important;
+}
+
+
+button.p-button.p-component {
+  /* padding: 13px; */
+  height: 40px;
+}
+
+.content {
+  min-height: 250px !important;
+  padding-top: 70px !important;
+  margin-right: auto !important;
+  margin-left: auto !important;
+  padding-left: 0px !important;
+  padding-right: 0px !important;
+}
+
+.content-wrapper, .main-footer {
+  margin-left: 0px !important;
+}
+
+
+div#pesquisa {
+  margin-left: auto;
+}
+
+button.btn {
+  height: 42px;
+}
+
+// .content {
+//   background-color: #ffffff !important;
+// }
+
+.topbar .topbar-item i {
+  color: #ffffff !important;
+}
+
+.p-togglebutton.p-button {
+  background: #009ef7 !important;
+  border: 1px solid #009ef7 !important;
+  padding: 11px !important;
+  color: #ffffff;
+  transition: background-color 0.15s, border-color 0.15s, box-shadow 0.15s;
+}
+
+button#novoPedido {
+  margin: 15px !important;
+}
+
+.btn {
+  font-size: 14px !important;
+}
+
+span.p-button-label {
+  font-size: 14px !important;
+}
+
+.p-menubar {
+  padding: 0rem 1rem !important;
+}
+
+span.p-menuitem-text {
+  font-size: 14px !important;
+}
+
+span.p-menuitem-icon.pi.pi-fw.pi-list.ng-star-inserted {
+  transform: rotate(90deg);
+}

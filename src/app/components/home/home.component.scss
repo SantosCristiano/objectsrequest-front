@@ -1,0 +1,480 @@
+.row{ margin-left: 0; margin-right: 0;}
+
+.product-item {
+  .product-item-content {
+      //border: 1px solid var(--surface-d);
+      border-radius: 3px;
+      //margin: .3rem;
+      text-align: left;
+      padding: 2rem 0;
+  }
+
+  .product-image {
+      width: 50%;
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23)
+  }
+}
+
+.clicado{
+  color: rgb(253, 233, 189);
+}
+
+/*.fundo{
+  background-image: url('../../../../images/backlogo.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}*/
+.p-carousel {
+	display: flex;
+	flex-direction: column;
+}
+
+.p-carousel-content {
+	display: flex;
+	flex-direction: column;
+	overflow: auto;
+}
+
+.p-carousel-prev,
+.p-carousel-next {
+	align-self: center;
+	flex-grow: 0;
+    flex-shrink: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+}
+
+.p-carousel-container {
+	display: flex;
+	flex-direction: row;
+}
+
+.p-carousel-items-content {
+	overflow: hidden;
+    width: 100%;
+}
+
+.p-carousel-items-container {
+	display: flex;
+	flex-direction: row;
+}
+
+.p-carousel-indicators {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	flex-wrap: wrap;
+}
+
+.p-carousel-indicator > button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Vertical */
+.p-carousel-vertical .p-carousel-container {
+	flex-direction: column;
+}
+
+.p-carousel-vertical .p-carousel-items-container {
+	flex-direction: column;
+	height: 100%;
+}
+
+/* Keyboard Support */
+.p-items-hidden .p-carousel-item {
+	visibility: hidden;
+}
+
+.p-items-hidden .p-carousel-item.p-carousel-item-active {
+	visibility: visible;
+}
+
+.clicado{
+  background-color: rgb(253, 233, 189);
+}
+
+.noselect {
+  -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome and Opera */
+}
+
+.std{
+  background-color: lightgrey;
+}
+
+.box-body.std {
+  height: 760px !important;
+  //overflow-y: auto !important;
+}
+
+p-table.box-header.with-border {
+  overflow-y: auto;
+  max-height: 170px;
+}
+
+.aguardandoRetirada{
+  background-color: rgba(148, 255, 246);
+  color: black;
+ }
+
+ .aberto{
+  animation: animate 1s linear infinite;
+  background-color: rgb(20, 63, 202);
+  color: white;
+ }
+
+.emAnalise{
+  animation: animate 1s linear infinite;
+  background-color: rgb(84, 209, 111);
+  color: white;
+}
+
+.emSeparacao{
+  animation: animate 1s linear infinite;
+  background-color: rgb(19, 134, 200);
+  color: white;
+}
+
+.emitindoNf{
+  animation: animate 1s linear infinite;
+  background-color: rgb(137, 18, 248);
+  color: white;
+}
+
+.aguardandoPrevisao{
+  background-color: rgb(245, 243, 121);
+  color: black;
+}
+
+.aguardandoEnvio{
+  background-color: rgb(144, 142, 34);
+  color: white;
+}
+
+.emTransporte{
+  background-color: rgba(14,117,36);
+  color: white;
+}
+
+.buscando{
+  background-color: rgba(14,117,36);
+  color: white;
+}
+
+.devolvendo{
+  background-color: rgba(14,117,36);
+  color: white;
+}
+
+.finalizado{
+  background-color: #777777;
+  color: white;
+}
+
+.recebidoNoEstoque{
+  animation: animate 1s linear infinite;
+  background-color: #777777;
+  color: white;
+}
+
+.cancelado{
+  background-color: rgba(224, 150, 38);
+  color: white;
+}
+
+.devolucao {
+  background-color: lightpink;
+}
+
+// .motos {
+//   display: none;
+// }
+
+// .transportadoras {
+//   display: none;
+// }
+
+// .estoques {
+//   display: none;
+// }
+
+
+.carousel-demo .ui-carousel .ui-carousel-content .ui-carousel-item .car-details > .p-grid {
+  border: 1px solid #b3c2ca;
+  border-radius: 3px;
+  margin: 0.3em;
+  text-align: center;
+  padding: 2em 0 2.25em 0;
+}
+.carousel-demo .ui-carousel .ui-carousel-content .ui-carousel-item .car-data .car-title {
+  font-weight: 700;
+  font-size: 20px;
+  margin-top: 24px;
+}
+.carousel-demo .ui-carousel .ui-carousel-content .ui-carousel-item .car-data .car-subtitle {
+  margin: 0.25em 0 2em 0;
+}
+.carousel-demo .ui-carousel .ui-carousel-content .ui-carousel-item .car-data button {
+  margin-left: 0.5em;
+}
+.carousel-demo .ui-carousel .ui-carousel-content .ui-carousel-item .car-data button:first-child {
+  margin-left: 0;
+}
+.carousel-demo .ui-carousel.custom-carousel .ui-carousel-dot-icon {
+  width: 16px !important;
+  height: 16px !important;
+  border-radius: 50%;
+}
+.carousel-demo .ui-carousel.ui-carousel-horizontal .ui-carousel-content .ui-carousel-item.ui-carousel-item-start .car-details > .p-grid {
+  margin-left: 0.6em;
+}
+.carousel-demo .ui-carousel.ui-carousel-horizontal .ui-carousel-content .ui-carousel-item.ui-carousel-item-end .car-details > .p-grid {
+  margin-right: 0.6em;
+}
+
+.product-item {
+	display: block !important;
+	align-items: center;
+	padding: .5rem;
+	width: 100%;
+
+	img {
+		width: 75px;
+        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+        margin-right: 1rem;
+	}
+
+	.product-list-detail {
+		flex: 1 1 0;
+	}
+
+	.product-list-action {
+		display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+    }
+
+    .product-category-icon {
+        vertical-align: middle;
+        margin-right: .5rem;
+    }
+
+    .product-category {
+        vertical-align: middle;
+        line-height: 1;
+    }
+}
+
+@media screen and (max-width: 576px) {
+    .product-item {
+        flex-wrap: wrap;
+
+        .image-container {
+            width: 100%;
+            text-align: center;
+        }
+
+        img {
+            margin: 0 0 1rem 0;
+            width: 100px;
+        }
+    }
+}
+
+.p-tag.p-tag-rounded {
+  border-radius: 10rem;
+  width: 100%;
+}
+
+.p-tag.p-tag-info {
+  background-color: rgb(255 255 255 / 0%);
+  color: #fff;
+}
+
+p.pull-right {
+  margin-right: 5px;
+  color: white;
+}
+
+.btn-action {
+  width: 50%;
+}
+
+.box-header.with-border {
+  border-bottom: 0px solid #f4f4f4 !important;
+}
+
+.spinner-central {
+  height: 500px;
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.ng-invalid.ng-touched:not(form) {
+  border: 1px solid red;
+}
+
+.manual {
+  margin-bottom: 15px;
+  width: 45%;
+}
+
+.lista {
+  margin-bottom: 15px;
+  margin-right: 10%;
+  width: 45%;
+}
+
+.btn-alterar-endereco {
+  width: 100%;
+  // margin-right: 10%;
+}
+
+// .btn-buscar-estoque {
+//   width: 45%;
+// }
+
+.btn-insert {
+  margin-top: 15px;
+  margin-bottom: 15px;
+  width: 100%;
+}
+
+.btn-atualizar-senha {
+  width: 100%;
+}
+
+span.p-shadow-3.p-tag.p-tag-rounded.p-tag-info.pull-center {
+  width: 45%;
+  text-align: end;
+}
+
+.product-item-content {
+  width: 300px;
+}
+
+// .box-header.with-border.content-section.implementation.card {
+//   animation: animate 1s linear infinite;
+//   color: black;
+// }
+
+// .aguardandoRetirada {
+//   animation: animate 1s linear infinite;
+// }
+
+@keyframes animate {
+  0% {
+      opacity: 1;
+  }
+
+  50% {
+      opacity: 1;
+  }
+
+  100% {
+      opacity: 0;
+  }
+}
+
+// Header
+
+.modal-backdrop {
+  position: inherit;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1040;
+  background-color: #000;
+}
+
+#numPedidoIpt {
+  float: right;
+  margin: 10px;
+  margin-right: 5px;
+  padding: 10px;
+}
+
+.menu-principal {
+  margin-top: 10px;
+  margin-left: 15px;
+  padding-right: 30px;
+  padding-left: 30px;
+}
+
+.btn-pesquisar {
+  margin: 10px;
+  //margin-right: 50px;
+}
+
+.btn-search {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+}
+
+.navbar {
+  background: linear-gradient(to right,#005c95 0%,#52247f 50%,#b31c2e 100%);
+}
+
+.p-menubar.p-component {
+  background: linear-gradient(to right, #005c95 0%, #52247f 50%, #b31c2e 100%) !important;
+}
+
+a.logo:hover {
+  color: #00c4ff;
+}
+
+.menu-principal {
+  background-color: rgb(166, 25, 46);
+  border-color: transparent;
+}
+
+.menu-principal {
+  background-color: rgb(166, 25, 46);
+  border-color: transparent;
+}
+
+.menu-principal:hover, .menu-principal:active, .menu-principal.hover {
+  background-color: #7c33a3;
+}
+
+.p-dropdown {
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -webkit-user-select: none;
+  cursor: pointer;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  position: fixed;
+  user-select: none;
+  width: 160px;
+}
+
+p-togglebutton {
+  // margin: 20px;
+  margin-right: 15px;
+}
+
+span.p-button-label {
+  font-size: inherit;
+}
+
+i.pi.pi-align-justify {
+  transform: rotate(90deg) !important;
+}
+

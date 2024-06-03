@@ -1,0 +1,117 @@
+<div class="container">
+  <div  class="row">
+    <div class="col-md-6">
+      <form class="form-horizontal" #form="ngForm" (ngSubmit)="inserirUsuario()">
+            <p-card>
+              <p-header>
+                <h3 class="box-title">Editar Usuário</h3>
+              </p-header>
+            <div class="ui-inputgroup">
+              <h5><label for="usuarioIpt">Usuário: </label></h5>
+              <p-dropdown name="usuarioIpt" optionLabel="nome" [filter]="true"
+                [options]="usuarioDTO" [(ngModel)]="usuarioCP" placeholder="Selecione o Usuário">
+              </p-dropdown>
+              <button pButton pRipple type="button" label="Alterar Perfil do Usuário" (click)="showDialogPerfil()"
+              class="p-button-rounded p-button-primary p-button-outlined btn-alt"></button>
+              <button pButton pRipple type="button" label="Alterar Usuário" (click)="alterarUsuario()"
+              class="p-button-rounded p-button-primary p-button-outlined btn-alt"></button>
+              <button pButton pRipple type="button"  label="Resetar Senha" (click)="resetarSenha()"
+              class="p-button-rounded p-button-primary p-button-outlined btn-alt"></button>
+            </div>
+          </p-card>
+          <div class="content-section implementation">
+            <div class="card">
+              <p-confirmDialog [style]="{width: '50vw'}" key="positionDialog" [position]="position" [baseZIndex]="10000">
+              </p-confirmDialog>
+            </div>
+            <p-messages [value]="msgs"></p-messages>
+          </div>
+          <p-card>
+            <p-header>
+              <h3 class="box-title">{{titulo}}</h3>
+            </p-header>
+            <h5><label style="text-align: center" for="usuarioIpt">Login (Número do Técnico CRM): </label></h5>
+            <div class="ui-inputgroup">
+              <input required id="usuarioIpt" name="usuarioIpt"  placeholder="Número do Técnico CRM" type="number" [(ngModel)]="usuarioInsert.usuario" class="form-input" pInputText #usuarioIpt="ngModel">
+              <p-message *ngIf="!usuarioIpt.valid && usuarioIpt.touched" severity="error" text="Login é obrigatório."></p-message>
+            </div>
+            <h5><label style="text-align: center" for="usuarioIpt">Confirmar Número do Técnico CRM:</label></h5>
+            <div class="ui-inputgroup">
+              <input required id="tecnicoIpt" name="tecnicoIpt"  placeholder="Número do Técnico CRM" type="number" [(ngModel)]="idTecnico" class="form-input" pInputText #tecnicoIpt="ngModel" (change)="validar()">
+              <p-message *ngIf="!tecnicoIpt.valid && tecnicoIpt.touched" severity="error" text="Número do Tecnico é obrigatório."></p-message>
+            </div>
+            <h5><label for="nomeIpt">Nome: </label></h5>
+            <div class="ui-inputgroup">
+              <input required id="nomeIpt" name="nomeIpt" placeholder="Nome" type="text" [(ngModel)]="usuarioInsert.nome" class="form-input" pInputText #nomeIpt="ngModel">
+              <p-message *ngIf="!nomeIpt.valid && nomeIpt.touched" severity="error" text="Nome é obrigatório."></p-message>
+            </div>
+            <h5><label style="text-align: center" for="dataInicioIpt">Data de Início: </label></h5>
+            <div class="ui-inputgroup">
+              <input required id="dataInicioIpt" name="dataInicioIpt"  placeholder="Data de Inicio" type="date" [ngModel]="usuarioInsert.dataInicio | date:'yyyy-MM-dd'" (ngModelChange)="usuarioInsert.dataInicio=$event" class="form-input" pInputText #dataInicioIpt="ngModel">
+              <p-message *ngIf="!dataInicioIpt.valid && dataInicioIpt.touched" severity="error" text="Data de Início é obrigatória."></p-message>
+            </div>
+            <h5><label for="dataFimIpt">Data de Fim: </label></h5>
+            <div class="ui-inputgroup">
+              <input required id="dataFimIpt" name="dataFimIpt"  placeholder="Data de Fim" type="date" [ngModel]="usuarioInsert.dataFim | date:'yyyy-MM-dd'" (ngModelChange)="usuarioInsert.dataFim=$event" class="form-input" pInputText #dataFimIpt="ngModel">
+              <p-message *ngIf="!dataFimIpt.valid && dataFimIpt.touched" severity="error" text="Data de Fim é obrigatória."></p-message>
+            </div>
+            <button type="submit" class="btn btn-primary btn-insert" [disabled]="!form.valid"><i class="pi pi-check"></i> {{botao}}</button>
+        </p-card>
+      </form>
+    </div>
+  </div>
+</div>
+<!-- [style]="{width: '600px'}" -->
+<p-dialog header=" Perfil/Filiais do Usuário "
+class="content-section implementation carousel-demo" [(visible)]="displayBasicFunc">
+<form class="form-horizontal">
+  <div class="card">
+    <p-pickList [source]="perfilDTO" [target]="perfilSelectedDTO" sourceHeader="Disponível" targetHeader="Selecionado"
+      dragdrop="true" [responsive]="true" [sourceStyle]="{'height':'800px'}" [targetStyle]="{'height':'800px'}"
+      filterBy="nome" sourceFilterPlaceholder="Procurar por nome" targetFilterPlaceholder="Procurar por nome">
+      <ng-template let-product pTemplate="item">
+        <div class="product-item">
+          <div class="product-list-detail">
+            <h5 class="p-mb-2">{{product.id}}</h5>
+            <h5 class="p-mb-2">{{product.nome}}</h5>
+        </div>
+      </div>
+      </ng-template>
+    </p-pickList>
+    <p-pickList [source]="filiaisDTO" [target]="filiaisSelectedDTO" sourceHeader="Disponível" targetHeader="Selecionado"
+    dragdrop="true" [responsive]="true" [sourceStyle]="{'height':'800px'}" [targetStyle]="{'height':'800px'}"
+    filterBy="nome" sourceFilterPlaceholder="Procurar por nome" targetFilterPlaceholder="Procurar por nome">
+    <ng-template let-product pTemplate="item">
+      <div class="product-item">
+        <div class="product-list-detail">
+          <h5 class="p-mb-2">{{product.id}}</h5>
+          <h5 class="p-mb-2">{{product.nome}}</h5>
+      </div>
+    </div>
+    </ng-template>
+  </p-pickList>
+    <button pButton pRipple type="button" label="Alterar Perfil do Usuário" (click)="alterarUsuarioPerfil()"
+    class="p-button-rounded p-button-primary p-button-outlined btn-alt pull-right"></button>
+  </div>
+</form>
+</p-dialog>
+
+<div class="modal modal-danger fade" id="modal-danger">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title">Excluir</h4>
+        </div>
+        <div class="modal-body">
+          <p>Deseja realmente excluir?&hellip;</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-outline">Excluir</button>
+        </div>
+      </div>
+    </div>
+  </div>
+

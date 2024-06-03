@@ -1,0 +1,350 @@
+<!--
+<header class="main-header layout-topbar" style="position: initial;" *ngIf="visibleMenu">
+  <div class="content-section implementation">
+    <div class="card">
+      <nav class="main-header navbar navbar-expand-md navbar-light navbar-white">
+        <a href="#" data-toggle="push-menu" role="button">
+          <span class="sr-only">Toggle navigation</span>
+        </a>
+        <a (click)="pedidos()" class="logo navbar-brand">
+          <span class="logo-lg"><i class="pi pi-home"></i> <b> PartsRequest</b></span>
+        </a>
+        <p-sidebar [(visible)]="visibleSidebar1" closeOnEscape="false">
+          <h4 style="font-weight:normal">Filtros</h4>
+          <form class="form-horizontal" #form="ngForm">
+            <div class="card">
+              <div class="ui-inputgroup">
+                <label for="tipoPedidoIpt"> Estoques: </label>
+                <p-multiSelect id="filiaisIpt" [options]="filtrosCP.filialDTO" name="filiaisIpt" [(ngModel)]="filialDTO"
+                  placeholder="Selecione o Estoque" optionLabel="nome" class="multi-select">
+                </p-multiSelect>
+              </div>
+              <div class="ui-inputgroup">
+                <label for="tipoPedidoIpt">Tipo Pedido: </label>
+                <p-multiSelect id="tipoPedidoIpt" [options]="filtrosCP.tipoPedidoDTO" name="tipoPedidoIpt"
+                  [(ngModel)]="tipoPedidoDTO" placeholder="Selecione Tipo Pedido" optionLabel="tipoPedido">
+                </p-multiSelect>
+              </div>
+              <div class="ui-inputgroup">
+                <label for="statusIpt">Status: </label>
+                <p-multiSelect [(ngModel)]="statusDTO" id="statusIpt" name="statusIpt" [options]="filtrosCP.statusDTO"
+                  placeholder="Selecione o Status" optionLabel="status"></p-multiSelect>
+              </div>
+              <div class="ui-inputgroup">
+                <label for="nomeLocalizacaoIpt">Localização: </label>
+                <p-multiSelect id="nomeLocalizacaoIpt" [options]="filtrosCP.localizacaoDTO" [(ngModel)]="localizacaoDTO"
+                  name="nomeLocalizacaoIpt" placeholder="Selecione o Local" optionLabel="nomeLocalizacao">
+                </p-multiSelect>
+              </div>
+            </div>
+            <button type="submit" (click)="enviarFiltrosParaHome();"
+              class="btn btn-primary pull-right btn-search"><i class="pi pi-search"></i> Pesquisar</button>
+
+              <button type="submit" (click)="pedidos();"
+              class="btn btn-primary pull-right btn-search"><i class="pi pi-filter-slash"></i> Limpar Filtros</button>
+          </form>
+        </p-sidebar>
+          <button type="button" *ngIf="btFiltro" class="btn btn-primary menu-principal" (click)="pedidos()"><i class="pi pi-list"></i> Pedidos</button>
+          <button type="button" *ngIf="btFiltro" class="btn btn-primary menu-principal" (click)="showDialogCP()"><i class="pi pi-filter"></i> Filtrar</button>
+        <p-sidebar [(visible)]="visibleSidebar2" position="right" closeOnEscape="false">
+          <h4 style="font-weight:normal">ADM</h4>
+          <form class="form-horizontal" #form="ngForm">
+            <div class="card">
+              <a [routerLink]="['/app-perfil']" routerLinkActive="router-link-active">
+              <div class="ui-inputgroup">
+                <li class="sub-menu">
+                  <p>Perfil</p>
+                </li>
+              </div>
+              </a>
+              <a [routerLink]="['/app-usuarios']" routerLinkActive="router-link-active">
+                <div class="ui-inputgroup">
+                  <li class="sub-menu">
+                    <p>Usuários</p>
+                  </li>
+                </div>
+              </a>
+              <a [routerLink]="['/app-filiais']" routerLinkActive="router-link-active">
+                <div class="ui-inputgroup">
+                  <li class="sub-menu">
+                    <p>Estoque</p>
+                  </li>
+                </div>
+              </a>
+              <!--<a [routerLink]="['/app-modalidade-entrega']" routerLinkActive="router-link-active">
+                <div class="ui-inputgroup">
+                  <li class="sub-menu">
+                  <p>Modalidades de Entrega</p>
+                  </li>
+                </div>
+              </a>
+              <a [routerLink]="['/app-localizacao']" routerLinkActive="router-link-active">
+                <div class="ui-inputgroup">
+                  <li class="sub-menu">
+                    <p>Localização</p>
+                  </li>
+                </div>
+              </a>
+              <a [routerLink]="['/app-status-pedidos']" routerLinkActive="router-link-active">
+                <div class="ui-inputgroup">
+                  <li class="sub-menu">
+                    <p>Status Pedidos</p>
+                  </li>
+                </div>
+              </a>
+              <a [routerLink]="['/app-tipo-pedidos']" routerLinkActive="router-link-active">
+                <div class="ui-inputgroup">
+                  <li class="sub-menu">
+                    <p>Tipo de Pedidos</p>
+                  </li>
+                </div>
+              </a>
+              <a [routerLink]="['/app-altera-senha']" routerLinkActive="router-link-active">
+                <div class="ui-inputgroup">
+                  <li class="sub-menu">
+                    <p>Alterar senha</p>
+                  </li>
+                </div>
+              </a>
+
+            </div>
+
+          </form>
+        </p-sidebar>
+          <button type="button" *ngIf="btAdm" class="btn btn-primary menu-principal" (click)="showDialogADM()" pTooltip="Administração"><i class="pi pi-cog"></i> ADM</button>
+          <button type="button" *ngIf="btRelatorio" class="btn btn-primary menu-principal" [routerLink]="['/app-relatorio']" routerLinkActive="router-link-active" pTooltip="Relatório"><i class="pi pi-table"></i> Relatório</button>
+          <button type="submit" (click)="logout()" class="btn btn-primary pull-right btn-pesquisar"><i class="pi pi-sign-out"></i> Sair</button>
+          <button class="btn btn-primary pull-right btn-pesquisar"> <i class="pi pi-user"> </i> {{ localUser.usuario | uppercase}}</button>
+          <button *ngIf="funcPesquisarPedido" type="submit" (click)="enviarNumPedidosHome()" class="btn btn-primary pull-right btn-pesquisar"><i class="pi pi-search"></i> Pesquisar</button>
+
+          <!--p-dropdown [options]="opcoes" [(ngModel)]="selectedOpcoes" optionLabel="name" [style]="{'width':'160px'}"></!--p-dropdown
+          <input *ngIf="funcPesquisarPedido" id="numPedidoIpt" name="numPedidoIpt" type="text" placeholder="Pedido ou Técnico" [(ngModel)]="codigoDoPedido" pInputText>
+      </nav>
+    </div>
+  </div>
+</header> -->
+
+
+<div class="header align-items-stretch" *ngIf="visibleMenu">
+  <div class="container-fluid d-flex align-items-stretch justify-content-between">
+    <div class="d-flex align-items-center flex-grow-1 flex-lg-grow-0 me-lg-15">
+      <a routerLink="/app-home">
+        <img alt="Logo" src="assets/logos/logo.svg" class="h-70px"/>
+      </a>
+    </div>
+
+    <div
+      class="d-flex align-items-stretch justify-content-between flex-lg-grow-1"
+    >
+      <div class="d-flex align-items-stretch" id="kt_header_nav">
+        <div
+          class="header-menu align-items-stretch"
+          data-kt-drawer="true"
+          data-kt-drawer-name="header-menu"
+          data-kt-drawer-activate="{default: true, lg: false}"
+          data-kt-drawer-overlay="true"
+          data-kt-drawer-width="{default:'200px', '300px': '250px'}"
+          data-kt-drawer-direction="end"
+          data-kt-drawer-toggle="#kt_header_menu_mobile_toggle"
+          data-kt-place="true"
+          data-kt-place-mode="prepend"
+          data-kt-place-parent="{default: '#kt_body', lg: '#kt_header_nav'}"
+        >
+          <div
+            class="menu menu-lg-rounded menu-column menu-lg-row menu-state-bg menu-title-gray-700 menu-state-title-primary menu-state-icon-primary menu-state-bullet-primary menu-arrow-gray-400 fw-bold my-5 my-lg-0 align-items-stretch"
+            id="#kt_header_menu"
+            data-kt-menu="true"
+          >
+            <div class="menu-item menu-lg-down-accordion me-lg-1">
+              <span class="menu-link py-3">
+                <span class="menu-title"  style="font-size: 20px"
+                  >PartsRequest</span
+                >
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="d-flex align-items-stretch flex-shrink-0">
+        <div class="topbar d-flex align-items-stretch flex-shrink-0">
+          <div
+            class="d-flex align-items-stretch"
+            id="kt_header_user_menu_toggle"
+          >
+            <div
+              class="topbar-item cursor-pointer symbol px-3 px-lg-5 me-n3 me-lg-n5 symbol-30px symbol-md-35px"
+              data-kt-menu-trigger="click"
+              data-kt-menu-attach="parent"
+              data-kt-menu-placement="bottom-end"
+              data-kt-menu-flip="bottom"
+            >
+            <!-- <a routerLink="/app-altera-senha"> -->
+              <span class="fs-3" style="color: #fff"
+                ><i class="fas fa-user-circle" style='font-size:24px;color:#fff'> </i> {{ localUser.usuario | uppercase}} </span
+              >
+            <!-- </a> -->
+
+            </div>
+            <div class="topbar-item cursor-pointer symbol px-3 px-lg-5 me-n3 me-lg-n5 symbol-30px symbol-md-35px">
+              <button type="submit" (click)="logout()" class="btn btn-primary pull-right btn-pesquisar"><i class="pi pi-sign-out"></i> Sair</button></div>
+            <div
+              class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold py-4 fs-6 w-275px"
+              data-kt-menu="true"
+            >
+              <!-- <div class="menu-item px-3">
+                <div class="menu-content d-flex align-items-center px-3">
+                  <div class="d-flex flex-column">
+                    <div class="fw-bolder d-flex align-items-center fs-5">
+                      {{ localUser.usuario}}
+                    </div>
+                    <a
+                      class="fw-bold text-muted text-hover-primary fs-7"
+                      >cristiano.desouza@dieboldnixdorf.com</a>
+                  </div>
+                </div>
+              </div> -->
+
+              <div class="menu-item px-5">
+                <!-- <a routerLink="/app-altera-senha" class="menu-link px-5">Alterar Senha</a> -->
+                <!-- <a (click)="logout()" class="menu-link px-5">Sair</a> -->
+              </div>
+            </div>
+          </div>
+          <div
+            class="d-flex align-items-stretch d-lg-none px-3 me-n3"
+            title="Show header menu"
+          >
+            <div class="topbar-item" id="kt_header_menu_mobile_toggle">
+              <i class="bi bi-text-left fs-1"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="visibleMenu">
+
+<p-sidebar [(visible)]="visibleSidebar1" closeOnEscape="false">
+  <h4 style="font-weight:normal">Filtros</h4>
+  <form class="form-horizontal" #form="ngForm">
+    <div class="card">
+      <div class="ui-inputgroup">
+        <label for="tipoPedidoIpt"> Estoques: </label>
+        <p-multiSelect id="filiaisIpt" [options]="filtrosCP.filialDTO" name="filiaisIpt" [(ngModel)]="filialDTO"
+          placeholder="Selecione o Estoque" optionLabel="nome" class="multi-select">
+        </p-multiSelect>
+      </div>
+      <div class="ui-inputgroup">
+        <label for="tipoPedidoIpt">Tipo Pedido: </label>
+        <p-multiSelect id="tipoPedidoIpt" [options]="filtrosCP.tipoPedidoDTO" name="tipoPedidoIpt"
+          [(ngModel)]="tipoPedidoDTO" placeholder="Selecione Tipo Pedido" optionLabel="tipoPedido">
+        </p-multiSelect>
+      </div>
+      <div class="ui-inputgroup">
+        <label for="statusIpt">Status: </label>
+        <p-multiSelect [(ngModel)]="statusDTO" id="statusIpt" name="statusIpt" [options]="filtrosCP.statusDTO"
+          placeholder="Selecione o Status" optionLabel="status"></p-multiSelect>
+      </div>
+      <div class="ui-inputgroup">
+        <label for="nomeLocalizacaoIpt">Localização: </label>
+        <p-multiSelect id="nomeLocalizacaoIpt" [options]="filtrosCP.localizacaoDTO" [(ngModel)]="localizacaoDTO"
+          name="nomeLocalizacaoIpt" placeholder="Selecione o Local" optionLabel="nomeLocalizacao">
+        </p-multiSelect>
+      </div>
+      <div class="ui-inputgroup">
+        <label for="meioTransporteIpt">Meio de Transporte: </label>
+        <p-multiSelect id="meioTransporteIpt" [options]="filtrosCP.transporteDTO" [(ngModel)]="transporteDTO"
+          name="meioTransporteIpt" placeholder="Selecione o Transporte" optionLabel="nome">
+        </p-multiSelect>
+      </div>
+    </div>
+    <button type="submit" (click)="enviarFiltrosParaHome();"
+      class="btn btn-primary pull-right btn-search"><i class="pi pi-search"></i> Pesquisar</button>
+
+      <button type="submit" (click)="pedidos();"
+      class="btn btn-primary pull-right btn-search"><i class="pi pi-filter-slash"></i> Limpar Filtros</button>
+  </form>
+</p-sidebar>
+  <button type="button" *ngIf="btFiltro" class="btn btn-primary menu-principal" (click)="pedidos()"><i class="pi pi-list"></i> Pedidos</button>
+  <button type="button" *ngIf="btFiltro" class="btn btn-primary menu-principal" (click)="showDialogCP()"><i class="pi pi-filter"></i> Filtrar</button>
+<p-sidebar [(visible)]="visibleSidebar2" position="right" closeOnEscape="false">
+  <h4 style="font-weight:normal">ADM</h4>
+  <form class="form-horizontal" #form="ngForm">
+    <div class="card">
+      <a [routerLink]="['/app-perfil']" routerLinkActive="router-link-active">
+      <div class="ui-inputgroup">
+        <li class="sub-menu">
+          <i class="fas fa-id-card" style='font-size:24px;'></i>
+          <p> Perfil</p>
+        </li>
+      </div>
+      </a>
+      <a [routerLink]="['/app-usuarios']" routerLinkActive="router-link-active">
+        <div class="ui-inputgroup">
+          <li class="sub-menu">
+            <i class="fas fa-users-cog" style='font-size:24px;'></i>
+            <p> Usuários</p>
+          </li>
+        </div>
+      </a>
+      <a [routerLink]="['/app-filiais']" routerLinkActive="router-link-active">
+        <div class="ui-inputgroup">
+          <li class="sub-menu">
+            <i class="fas fa-cubes" style='font-size:24px;'></i>
+            <p>Estoque</p>
+          </li>
+        </div>
+      </a>
+      <!--<a [routerLink]="['/app-modalidade-entrega']" routerLinkActive="router-link-active">
+        <div class="ui-inputgroup">
+          <li class="sub-menu">
+          <p>Modalidades de Entrega</p>
+          </li>
+        </div>
+      </a>
+      <a [routerLink]="['/app-localizacao']" routerLinkActive="router-link-active">
+        <div class="ui-inputgroup">
+          <li class="sub-menu">
+            <p>Localização</p>
+          </li>
+        </div>
+      </a>
+      <a [routerLink]="['/app-status-pedidos']" routerLinkActive="router-link-active">
+        <div class="ui-inputgroup">
+          <li class="sub-menu">
+            <p>Status Pedidos</p>
+          </li>
+        </div>
+      </a>
+      <a [routerLink]="['/app-tipo-pedidos']" routerLinkActive="router-link-active">
+        <div class="ui-inputgroup">
+          <li class="sub-menu">
+            <p>Tipo de Pedidos</p>
+          </li>
+        </div>
+      </a>
+      <a [routerLink]="['/app-altera-senha']" routerLinkActive="router-link-active">
+        <div class="ui-inputgroup">
+          <li class="sub-menu">
+            <p>Alterar senha</p>
+          </li>
+        </div>
+      </a>-->
+    </div>
+  </form>
+</p-sidebar>
+</div>
+
+<div class="toolbar" id="kt_toolbar" *ngIf="visibleMenu">
+  <div id="kt_toolbar_container" class="d-flex flex-stack">
+      <p-menubar [model]="items">
+      </p-menubar>
+  </div>
+  <div id="pesquisa">
+    <button *ngIf="funcPesquisarPedido" type="submit" (click)="enviarNumPedidosHome()" class="btn btn-primary pull-right btn-pesquisar"><i class="pi pi-search"></i> Pesquisar</button>
+    <input *ngIf="funcPesquisarPedido" id="numPedidoIpt" name="numPedidoIpt" type="text" placeholder="Pedido ou Técnico" [(ngModel)]="codigoDoPedido" pInputText>
+  </div>
+</div>

@@ -1,0 +1,53 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="content-section implementation">
+        <form class="form-horizontal" (ngSubmit)="incluir()">
+          <p-card>
+            <p-header>
+              <h3 class="box-title">Inserir Modalidade de Entrega</h3>
+            </p-header>
+            <div class="ui-inputgroup">
+              <h5><label for="nomeModalidade">Modalidade de Entrega: </label></h5>
+              <input type="text" class="form-input uppercase" [formControl]="nomeModalidade" id="nomeModalidade" name="nomeModalidade" placeholder="Modalidade de Entrega" pInputText />
+            </div>
+              <button type="reset" class="btn btn-warning btn-standard btn-clear"><i class="fa fa-edit"></i> Limpar</button>
+              <button type="submit" class="btn btn-primary btn-standard btn-include"><i class="fa fa-check"></i> Incluir</button>
+          </p-card>
+        </form>
+        <p-card>
+          <p-header>
+            <h3 class="box-title">Modalidades de Entrega</h3>
+          </p-header>
+            <div class="ui-inputgroup">
+              <div *ngFor="let unidade of modalidadesEntrega; index as i">
+                <div><h5>{{ unidade.modalidade }}</h5></div>
+                <button type="button" class="btn btn-warning btn-standard btn-edit"><i class="fa fa-edit"></i> Editar</button>
+                <button type="button" class="btn btn-danger btn-standard btn-remove" (click)="remover(i)"><i class="fa fa-close"></i> Remover</button>
+              </div>
+            </div>
+        </p-card>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- <div class="modal modal-danger fade" id="modal-danger">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title">Excluir</h4>
+        </div>
+        <div class="modal-body">
+          <p>Deseja realmente excluir?&hellip;</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-outline">Excluir</button>
+        </div>
+      </div>
+    </div>
+  </div>
+-->

@@ -1,0 +1,44 @@
+<div class="modal modal-backdrop" role="dialog" id="modalFiltro">
+  <br/>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">Filtros</h4>
+      </div>
+      <div class="modal-body">
+        <div class="checkbox">
+          <div class="col-lg-12">
+            <legend>Localização</legend>
+            <label>
+              <input type="checkbox" [(ngModel)]="local" />
+              Local
+            </label>
+
+            <label>
+              <input type="checkbox" [(ngModel)]="residente" />
+              Residente
+            </label>
+
+            <br />
+            <br />
+            <legend>Filiais</legend>
+
+            <select name="filial" id="input" class="form-control col-lg-2">
+              <option value="Rio de Janeiro">Rio de Janeiro</option>
+              <option value="São Paulo" selected>São Paulo</option>
+            </select>
+
+            <br />
+            <br />
+
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-primary" (click)="enviarFiltrosParaHome()">Filtrar</button>
+      </div>
+    </div>
+  </div>
+</div>

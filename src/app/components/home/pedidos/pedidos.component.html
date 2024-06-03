@@ -1,0 +1,96 @@
+
+
+<div class="box box-warning box-solid" style="width: 280px;">
+  <div
+    [ngClass]="{
+      verifdisp: verifDispEReceb(),
+      aguardSep: aguardSep(),
+      notaFiscal: notaFiscal(),
+      previsao: previsao(),
+      transporte: transporte(),
+      finalizado: finalizado()
+    }"
+  >
+    <div class="box-header with-border">
+      <h3
+        class="box-title"
+        [ngClass]="{
+          verifdisp: verifDispEReceb(),
+          aguardSep: aguardSep(),
+          notaFiscal: notaFiscal(),
+          previsao: previsao(),
+          transporte: transporte(),
+          finalizado: finalizado()
+        }"
+      >
+        Pedido {{ pedidos.idPedido }}
+        <form class="form-horizontal" (ngSubmit)="mudaStatus(pedidos)">
+              <button type="submit" > --> </button>
+            </form>
+      </h3>
+
+      <div class="box-tools pull-right">
+        <button type="button" class="btn btn-box-tool" data-widget="collapse">
+          <i class="fa fa-minus"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="box-body" [ngClass]="{std: (finalizado() === false), finalizadoBody: finalizado()}">
+    <div class="box-body" (click)="pegaInformacao()">
+      <div class="box-body noselect">
+        <div
+          [ngClass]="{
+            verifdisp: verifDispEReceb(),
+            aguardSep: aguardSep(),
+            notaFiscal: notaFiscal(),
+            previsao: previsao(),
+            transporte: transporte(),
+            finalizado: finalizado()
+          }"
+        >
+          <b>Status: </b>{{ pedidos.stPstatusStatus }}
+          <br />
+        </div>
+        <br />
+        <b> Data:</b>
+        {{
+          pedidos.stPstatusData
+            | date: "dd/MM/yyyy HH:mm"
+        }}
+
+        <br />
+        <b>Técnico:</b> {{ pedidos.idTecnico }} - {{ pedidos.idTecnico }} -
+        {{ pedidos.idTecnico}}
+        <br />
+        <b>Tarefa:</b> {{ pedidos.idTarefa}} - {{ pedidos.idSite }}
+        <br />
+        <b>Prazo:</b>
+        {{
+          pedidos.idTarefa
+        }}
+        <br />
+        <b>Endereço:</b> {{ pedidos.eaLogradouro }} -
+        {{ pedidos.eaNum }} -
+        {{ pedidos.eaCep }} -
+        {{ pedidos.eaBairro }} -
+        {{ pedidos.eaCidade }}
+        <br />
+        <b>Distancia:</b> {{ pedidos.eaCidade  }}
+        <br />
+        <b>Atividade: </b>{{ pedidos.eaCidade  }}
+        <br />
+        <b>Entregador:</b> {{ pedidos.eaCidade  }}
+        <br />
+        <b>Agendamento:</b>
+        {{ pedidos.eaCidade  }}
+        <br />
+        <b>Peças:</b> {{ pedidos.eaCidade  }} -
+        <b>QTD: </b>{{ pedidos.eaCidade  }}
+        <br />
+        <b>NF:</b> {{ pedidos.eaCidade }}
+      </div>
+    </div>
+  </div>
+</div>
+

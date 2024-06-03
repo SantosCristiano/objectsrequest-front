@@ -1,0 +1,85 @@
+<div class="container">
+  <div  class="row">
+    <div class="col-md-6">
+      <div class="content-section implementation">
+        <div class="card">
+          <p-confirmDialog [style]="{width: '50vw'}" key="positionDialog" [position]="position" [baseZIndex]="10000">
+          </p-confirmDialog>
+        </div>
+        <p-messages [value]="msgs"></p-messages>
+      </div>
+      <form class="form-horizontal" #form="ngForm" (ngSubmit)="inserirPerfil()">
+        <p-card>
+          <p-header>
+            <h3 class="box-title">Editar Perfil</h3>
+          </p-header>
+            <div class="ui-inputgroup">
+              <h5><label for="perfilIpt">Perfil: </label></h5>
+            <p-dropdown name="perfilIpt" optionLabel="nome" [filter]="true"
+              [options]="perfilDTO" [(ngModel)]="perfilCP" placeholder="Selecione o Perfil">
+            </p-dropdown>
+            </div>
+            <button pButton pRipple type="button"  label="Alterar Funcionalidade do Perfil" (click)="showDialogFuncionalidades()"
+              class="p-button-rounded p-button-primary p-button-outlined btn-alt"></button>
+        </p-card>
+        <p-card>
+          <p-header>
+            <h3 class="box-title">Adicionar Novo Perfil</h3>
+          </p-header>
+            <h5><label for="perfilIpt">Nome Perfil: </label></h5>
+            <div class="ui-inputgroup" >
+              <input required id="perfilIpt" name="numIpt" class="form-input" placeholder="Nome do Perfil" type="text" [(ngModel)]="perfilInsert.nome" pInputText #numIpt="ngModel">
+              <p-message *ngIf="!numIpt.valid && numIpt.touched" severity="error" text="Nome do Perfil é obrigatório."></p-message>
+            </div>
+            <button type="submit"
+              class="btn btn-primary btn-insert" [disabled]="!form.valid"><i class="pi pi-check"></i> Inserir Perfil</button>
+        </p-card>
+      </form>
+    </div>
+    <!-- [style]="{width: '800px'}" -->
+    <p-dialog  header="Funcionalidades do Perfil: "
+    class="content-section implementation carousel-demo" [(visible)]="displayBasicFunc">
+    <form class="form-horizontal" #form="ngForm" >
+      <div class="card">
+        <p-pickList [source]="funcionalidadeDTO" [target]="funcionalidadeSelectedDTO" sourceHeader="Disponível" targetHeader="Selecionado"
+          dragdrop="true" [responsive]="true" [sourceStyle]="{'height':'800px'}" [targetStyle]="{'height':'800px'}"
+          filterBy="nmFuncionalidade" sourceFilterPlaceholder="Procurar por nome" targetFilterPlaceholder="Procurar por nome">
+          <ng-template let-product pTemplate="item">
+            <div class="product-item">
+              <div class="product-list-detail">
+                <h5 class="p-mb-2">{{product.id}}</h5>
+                <h5 class="p-mb-2">{{product.funcionalidade}}</h5>
+                <span class="product-category">{{product.nmFuncionalidade}}</span>
+              </div>
+              <div class="product-list-action">
+                <h6 class="p-mb-2">{{product.pagina}}</h6>
+              </div>
+            </div>
+          </ng-template>
+        </p-pickList>
+        <button pButton pRipple type="button"  label="Alterar Funcionalidade do Perfil" (click)="alterarPerfilFuncionalidades()"
+        class="p-button-rounded p-button-primary p-button-outlined btn-alt pull-right"></button>
+      </div>
+    </form>
+    </p-dialog>
+
+    <div class="modal modal-danger fade" id="modal-danger">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Excluir</h4>
+          </div>
+          <div class="modal-body">
+            <p>Deseja realmente excluir?&hellip;</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Cancelar</button>
+            <button type="button" class="btn btn-outline">Excluir</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

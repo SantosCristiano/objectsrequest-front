@@ -1,0 +1,64 @@
+<div class="container">
+  <div  class="row">
+    <div class="col-md-6">
+      <form class="form-horizontal" #form="ngForm" (ngSubmit)="inserirEstoque()">
+            <p-card>
+              <p-header>
+                <h3 class="box-title">Estoque</h3>
+              </p-header>
+            <div class="ui-inputgroup">
+              <h5><label for="estoqueIpt">Estoque: </label></h5>
+              <p-dropdown name="estoqueIpt" optionLabel="nome" [filter]="true"
+                [options]="filialDTO" [(ngModel)]="filialCP" placeholder="Selecione o Estoque">
+              </p-dropdown>
+              <!--button pButton pRipple type="button" label="Alterar Estoque" (click)="alterarEstoque()"
+              class="p-button-rounded p-button-primary p-button-outlined btn-alt"></!--button-->
+            </div>
+          </p-card>
+          <div class="content-section implementation">
+            <div class="card">
+              <p-confirmDialog [style]="{width: '50vw'}" key="positionDialog" [position]="position" [baseZIndex]="10000">
+              </p-confirmDialog>
+            </div>
+            <p-messages [value]="msgs"></p-messages>
+          </div>
+          <p-card>
+            <p-header>
+              <h3 class="box-title">{{titulo}}</h3>
+            </p-header>
+            <h5><label style="text-align: center" for="idIpt">Código Estoque:</label></h5>
+            <div class="ui-inputgroup">
+              <input required id="idIpt" name="idIpt"  placeholder="Código Estoque" type="text" [(ngModel)]="filialInsert.id" class="form-input" pInputText #idIpt="ngModel">
+              <p-message *ngIf="!idIpt.valid && idIpt.touched" severity="error" text="Código é obrigatório."></p-message>
+            </div>
+            <h5><label for="nomeIpt">Nome: </label></h5>
+            <div class="ui-inputgroup">
+              <input required id="nomeIpt" name="nomeIpt" placeholder="Nome Estoque" type="text" [(ngModel)]="filialInsert.nome" class="form-input" pInputText #nomeIpt="ngModel">
+              <p-message *ngIf="!nomeIpt.valid && nomeIpt.touched" severity="error" text="Nome é obrigatório."></p-message>
+            </div>
+            <button type="submit" class="btn btn-primary btn-insert" [disabled]="!form.valid"><i class="pi pi-check"></i> {{botao}}</button>
+        </p-card>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="modal modal-danger fade" id="modal-danger">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title">Excluir</h4>
+        </div>
+        <div class="modal-body">
+          <p>Deseja realmente excluir?&hellip;</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-outline">Excluir</button>
+        </div>
+      </div>
+    </div>
+  </div>
+

@@ -1,0 +1,17 @@
+.top-buffer { margin-right: 15px;}
+
+
+.uppercase{
+  text-transform: uppercase;
+}
+
+.box-title {
+  width: 100%;
+  text-align: center;
+  padding: 25px;
+  padding-bottom: 0px;
+}
+
+.ng-invalid.ng-touched:not(form) {
+  border: 1px solid red;
+}
